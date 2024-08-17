@@ -29,15 +29,24 @@ class PlaceItem extends StatelessWidget {
           horizontal: 16,
           vertical: 12,
         ),
-        child: Text(
-          place.title,
-          // style: const TextStyle(
-          //   color: Colors.white,
-          //   fontSize: 16,
-          // ),
-          style: Theme.of(context).textTheme.titleMedium!.copyWith(
-                color: Theme.of(context).colorScheme.onSurface,
-              ),
+        child: Row(
+          children: [
+            CircleAvatar(
+              backgroundImage: FileImage(place.image),
+              radius: 26,
+            ),
+            const SizedBox(width: 16),
+            Text(
+              place.title,
+              // style: const TextStyle(
+              //   color: Colors.white,
+              //   fontSize: 16,
+              // ),
+              style: Theme.of(context).textTheme.titleMedium!.copyWith(
+                    color: Theme.of(context).colorScheme.onSurface,
+                  ),
+            ),
+          ],
         ),
       ),
     );

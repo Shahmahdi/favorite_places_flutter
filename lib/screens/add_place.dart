@@ -1,5 +1,8 @@
+import 'dart:io';
+
 import 'package:favorite_places_flutter/models/place.dart';
 import 'package:favorite_places_flutter/providers/favorite_places_provider.dart';
+import 'package:favorite_places_flutter/widgets/image_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -15,14 +18,18 @@ class AddPlaceScreen extends ConsumerStatefulWidget {
 class _AddPlace extends ConsumerState<AddPlaceScreen> {
   final _formKey = GlobalKey<FormState>();
   var _enteredTitle = "";
+  File? _selectedImage;
 
   void _savePlace() {
     if (_formKey.currentState!.validate()) {
       _formKey.currentState!.save();
+      if (_selectedImage == null) {
+        return;
+      }
+      final newPlace = Place(title: _enteredTitle, image: _selectedImage!);
+      ref.read(favoritePlacesProvider.notifier).addNewPlace(newPlace);
+      Navigator.of(context).pop();
     }
-    final newPlace = Place(title: _enteredTitle);
-    ref.read(favoritePlacesProvider.notifier).addNewPlace(newPlace);
-    Navigator.of(context).pop();
   }
 
   @override
@@ -56,6 +63,12 @@ class _AddPlace extends ConsumerState<AddPlaceScreen> {
                 },
                 onSaved: (newValue) {
                   _enteredTitle = newValue!;
+                },
+              ),
+              const SizedBox(height: 10),
+              ImagePickerInput(
+                onPickImage: (image) {
+                  _selectedImage = image;
                 },
               ),
               const SizedBox(height: 16),

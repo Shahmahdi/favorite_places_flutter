@@ -20,6 +20,9 @@ final kColorScheme = ColorScheme.fromSeed(
 final theme = ThemeData().copyWith(
   colorScheme: kColorScheme,
   scaffoldBackgroundColor: kColorScheme.surface,
+  appBarTheme: const AppBarTheme(
+    color: Colors.black
+  ),
   textTheme: GoogleFonts.ubuntuCondensedTextTheme().copyWith(
     titleSmall: GoogleFonts.ubuntuCondensed(
       fontWeight: FontWeight.bold,
