@@ -27,8 +27,10 @@ class _AddPlace extends ConsumerState<AddPlaceScreen> {
       if (_selectedImage == null) {
         return;
       }
-      final newPlace = Place(title: _enteredTitle, image: _selectedImage!);
-      ref.read(favoritePlacesProvider.notifier).addNewPlace(newPlace);
+      ref.read(favoritePlacesProvider.notifier,).addNewPlace(
+            _enteredTitle,
+            _selectedImage!,
+          );
       Navigator.of(context).pop();
     }
   }
@@ -39,48 +41,50 @@ class _AddPlace extends ConsumerState<AddPlaceScreen> {
       appBar: AppBar(
         title: const Text("Add new place"),
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(12),
-        child: Form(
-          key: _formKey,
-          child: Column(
-            children: [
-              TextFormField(
-                maxLength: 50,
-                decoration: const InputDecoration(
-                  label: Text("Title"),
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(12),
+          child: Form(
+            key: _formKey,
+            child: Column(
+              children: [
+                TextFormField(
+                  maxLength: 50,
+                  decoration: const InputDecoration(
+                    label: Text("Title"),
+                  ),
+                  style: const TextStyle(
+                    color: Colors.white,
+                  ),
+                  validator: (value) {
+                    if (value == null ||
+                        value.isEmpty ||
+                        value.trim().length <= 1 ||
+                        value.trim().length > 50) {
+                      return "Title must be in between 2 to 50";
+                    }
+                    return null;
+                  },
+                  onSaved: (newValue) {
+                    _enteredTitle = newValue!;
+                  },
                 ),
-                style: const TextStyle(
-                  color: Colors.white,
+                const SizedBox(height: 10),
+                ImagePickerInput(
+                  onPickImage: (image) {
+                    _selectedImage = image;
+                  },
                 ),
-                validator: (value) {
-                  if (value == null ||
-                      value.isEmpty ||
-                      value.trim().length <= 1 ||
-                      value.trim().length > 50) {
-                    return "Title must be in between 2 to 50";
-                  }
-                  return null;
-                },
-                onSaved: (newValue) {
-                  _enteredTitle = newValue!;
-                },
-              ),
-              const SizedBox(height: 10),
-              ImagePickerInput(
-                onPickImage: (image) {
-                  _selectedImage = image;
-                },
-              ),
-              const SizedBox(height: 10),
-              const LocationInput(),
-              const SizedBox(height: 16),
-              ElevatedButton.icon(
-                onPressed: _savePlace,
-                label: const Text("Add Place"),
-                icon: const Icon(Icons.add),
-              ),
-            ],
+                const SizedBox(height: 10),
+                const LocationInput(),
+                const SizedBox(height: 16),
+                ElevatedButton.icon(
+                  onPressed: _savePlace,
+                  label: const Text("Add Place"),
+                  icon: const Icon(Icons.add),
+                ),
+              ],
+            ),
           ),
         ),
       ),
