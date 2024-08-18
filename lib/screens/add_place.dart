@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:favorite_places_flutter/models/place.dart';
 import 'package:favorite_places_flutter/providers/favorite_places_provider.dart';
 import 'package:favorite_places_flutter/widgets/image_picker.dart';
+import 'package:favorite_places_flutter/widgets/location_input.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -71,6 +72,8 @@ class _AddPlace extends ConsumerState<AddPlaceScreen> {
                   _selectedImage = image;
                 },
               ),
+              const SizedBox(height: 10),
+              const LocationInput(),
               const SizedBox(height: 16),
               ElevatedButton.icon(
                 onPressed: _savePlace,
