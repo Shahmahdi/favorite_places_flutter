@@ -11,7 +11,7 @@ class LocationInput extends StatefulWidget {
 }
 
 class _LocationInput extends State<LocationInput> {
-  Location? _pickedLocation;
+  // Location? _pickedLocation;
   var _isGettingLocation = false;
 
   void _getCurrentLocation() async {

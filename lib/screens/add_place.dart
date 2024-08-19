@@ -1,6 +1,5 @@
 import 'dart:io';
 
-import 'package:favorite_places_flutter/models/place.dart';
 import 'package:favorite_places_flutter/providers/favorite_places_provider.dart';
 import 'package:favorite_places_flutter/widgets/image_picker.dart';
 import 'package:favorite_places_flutter/widgets/location_input.dart';
